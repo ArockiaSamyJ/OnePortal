@@ -8,13 +8,14 @@ export default function Layout({ children }) {
 
     return (
         <div className="app-container">
-            {/* Header */}
+            {/* Header with hamburger menu */}
             <Header onMenuClick={() => setIsSidebarOpen(!isSidebarOpen)} />
 
             <div className="main-container">
+                {/* Sidebar */}
                 <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
-                {/* Content + Footer wrapper */}
+                {/* Content + Footer */}
                 <div className="content-wrapper">
                     <div className="content">{children}</div>
                     <Footer />
