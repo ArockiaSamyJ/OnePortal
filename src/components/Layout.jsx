@@ -1,26 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import Footer from "./Footer";
 
 export default function Layout({ children }) {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const hamburgerRef = useRef(null); // keep ref here
 
-    return (
-        <div className="app-container">
-            {/* Header with hamburger menu */}
-            <Header onMenuClick={() => setIsSidebarOpen(!isSidebarOpen)} />
+  return (
+    <div className="app-container">
+      <Header
+        onMenuClick={() => setIsSidebarOpen((prev) => !prev)}
+        hamburgerRef={hamburgerRef}
+      />
 
-            <div className="main-container">
-                {/* Sidebar */}
-                <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+      <div className="main-container">
+        <Sidebar
+          isOpen={isSidebarOpen}
+          onClose={() => setIsSidebarOpen(false)}
+          hamburgerRef={hamburgerRef} // pass it down
+        />
 
-                {/* Content + Footer */}
-                <div className="content-wrapper">
-                    <div className="content">{children}</div>
-                    <Footer />
-                </div>
-            </div>
+        <div className="content-wrapper">
+          <div className="content">{children}</div>
+          <Footer />
         </div>
-    );
+      </div>
+    </div>
+  );
 }
